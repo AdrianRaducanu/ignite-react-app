@@ -20,13 +20,15 @@ const getCurrentDay = () => {
 };
 
 const currentYear = new Date().getFullYear();
+
 const currentMonth = getCurrentMonth();
 const currentDay = getCurrentDay();
 const currentDate = `${currentYear}-${currentMonth}-${currentDay}`;
 const lastYear = `${currentYear - 1}-${currentMonth}-${currentDate}`;
 const nextYear = `${currentYear + 1}-${currentMonth}-${currentDate}`;
+
 //
-const popular_games = `games?dates=${lastYear}${currentDate}&ordering=-rating&page_size=10`;
+const popular_games = `games?dates=${currentDate}&ordering=-rating&page_size=10`;
 const upcoming_games = `games?dates=${currentDate}${nextYear}&ordering=-added&page_size=10`;
 const new_games = `games?dates=${lastYear}${currentDate}&ordering=-released&page_size=10`;
 
