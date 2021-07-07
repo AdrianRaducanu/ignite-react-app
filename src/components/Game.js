@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { popUp } from "../animation";
 
 function Game({ game, setActualGame }) {
   console.log(typeof game.id.toString());
@@ -11,6 +12,9 @@ function Game({ game, setActualGame }) {
   };
   return (
     <StyledGame
+      variants={popUp}
+      initial="hidden"
+      animate="show"
       layoutId={game.id.toString()}
       onClick={funcSetGameAndLockBackground}
     >

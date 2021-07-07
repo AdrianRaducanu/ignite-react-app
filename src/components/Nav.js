@@ -5,6 +5,8 @@ import logo from "../img/logo.svg";
 //Redux and Routes
 import { fetchSearch, clearSearch } from "../actions/gamesAction";
 import { useDispatch } from "react-redux";
+//animation
+import { fadeIn } from "../animation";
 
 function Nav() {
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ function Nav() {
   };
 
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <StyledLogo onClick={funcLogoClear}>
         <img src={logo} alt="logo"></img>
         <h1>Ignite</h1>
