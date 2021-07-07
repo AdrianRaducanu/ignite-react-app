@@ -1,0 +1,12 @@
+Pentru a pune datele dintr-un api in redux pasii sunt :
+
+1. Construiesti o "actiune" ce contine type-ul acesteia si payload-ul -> adica ce dorim sa retinem din api;
+
+2. Construiesti un reducer pe baza celor de aici;
+
+3. Adaugi reducer-ul nou format in index.js din folderul cu reducer-i!!! pentru a-l combina cu ceilalti deja existenti
+
+----In mare parte copy paste cu ce am facut aici-----
+
+
+====Foarte importanti sunt pasii de setup====

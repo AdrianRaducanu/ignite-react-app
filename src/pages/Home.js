@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 //style
@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 //components
 import Game from "../components/Game";
+import GameDetail from "../components/GameDetail";
 
 function Home() {
   //punerea datelor din api in redux
@@ -17,45 +18,29 @@ function Home() {
   //extragerea datelor din redux
   // {x, y, z} = ... <=> ceva = ... , ceva.x, ceva.y, ceva.z
   const { popular, newGames, upcoming } = useSelector((state) => state.games);
-
   //
+
+  const [actualGame, setActualGame] = useState(popular[1]);
 
   return (
     <StyledGameList>
+      {actualGame ? <GameDetail game={actualGame} /> : <div></div>}
       <h2>Upcoming Games</h2>
       <StyledGames>
         {upcoming.map((x) => (
-          <Game
-            name={x.name}
-            released={x.released}
-            id={x.id}
-            img={x.background_image}
-            key={x.id}
-          />
+          <Game game={x} key={x.id} setActualGame={setActualGame} />
         ))}
       </StyledGames>
       <h2>Popular Games</h2>
       <StyledGames>
         {popular.map((x) => (
-          <Game
-            name={x.name}
-            released={x.released}
-            id={x.id}
-            img={x.background_image}
-            key={x.id}
-          />
+          <Game game={x} key={x.id} setActualGame={setActualGame} />
         ))}
       </StyledGames>
       <h2>New Games</h2>
       <StyledGames>
         {newGames.map((x) => (
-          <Game
-            name={x.name}
-            released={x.released}
-            id={x.id}
-            img={x.background_image}
-            key={x.id}
-          />
+          <Game game={x} key={x.id} setActualGame={setActualGame} />
         ))}
       </StyledGames>
     </StyledGameList>

@@ -2,12 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-function Game({ name, released, img }) {
+function Game({ game, setActualGame }) {
   return (
-    <StyledGame>
-      <h3>{name}</h3>
-      <p>{released}</p>
-      <img src={img} alt={name}></img>
+    <StyledGame onClick={() => setActualGame(game)}>
+      <h3>{game.name}</h3>
+
+      <p>{game.released}</p>
+      <img src={game.background_image} alt={game.name}></img>
     </StyledGame>
   );
 }

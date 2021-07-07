@@ -42,3 +42,7 @@ export const newGamesURL = () => {
   return `${base_url}${new_games}${key_url}`;
 };
 console.log(newGamesURL());
+
+//Game details
+export const gameDetailsURL = (game_id) =>
+  `${base_url}games/${game_id}${key_url}`;
