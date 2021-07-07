@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 //style
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion"; //AnimatePresence functioneaza cand avem ceva toggle, de exemplu path ul se schimba
+//AnimateSharedLayout are nevoie de id uri diferite pt fiecare copmonenta pe care o wrapuieste
 //components
 import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
@@ -33,32 +34,36 @@ function Home() {
 
   //router
   const location = useLocation();
-  const path = location.pathname.split("/")[2];
-  console.log(path);
+  const pathId = location.pathname.split("/")[2];
+  console.log(pathId);
 
   return (
     <>
       {!isLoading && (
         <StyledGameList>
-          {path && <GameDetail game={actualGame} />}
-          <h2>Upcoming Games</h2>
-          <StyledGames>
-            {upcoming.map((x) => (
-              <Game game={x} key={x.id} setActualGame={setActualGame} />
-            ))}
-          </StyledGames>
-          <h2>Popular Games</h2>
-          <StyledGames>
-            {popular.map((x) => (
-              <Game game={x} key={x.id} setActualGame={setActualGame} />
-            ))}
-          </StyledGames>
-          <h2>New Games</h2>
-          <StyledGames>
-            {newGames.map((x) => (
-              <Game game={x} key={x.id} setActualGame={setActualGame} />
-            ))}
-          </StyledGames>
+          <AnimateSharedLayout type="crossfade">
+            <AnimatePresence>
+              {pathId && <GameDetail pathId={pathId} game={actualGame} />}
+            </AnimatePresence>
+            <h2>Upcoming Games</h2>
+            <StyledGames>
+              {upcoming.map((x) => (
+                <Game game={x} key={x.id} setActualGame={setActualGame} />
+              ))}
+            </StyledGames>
+            <h2>Popular Games</h2>
+            <StyledGames>
+              {popular.map((x) => (
+                <Game game={x} key={x.id} setActualGame={setActualGame} />
+              ))}
+            </StyledGames>
+            <h2>New Games</h2>
+            <StyledGames>
+              {newGames.map((x) => (
+                <Game game={x} key={x.id} setActualGame={setActualGame} />
+              ))}
+            </StyledGames>
+          </AnimateSharedLayout>
         </StyledGameList>
       )}
     </>

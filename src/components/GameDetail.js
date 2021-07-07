@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 
-function GameDetail({ game }) {
+function GameDetail({ game, pathId }) {
   //revenirea la scrollare dupa inchiderea ferestrei cu detalii SI REVENIREA LA HOME
   const history = useHistory();
   const funcExitDetail = (e) => {
@@ -17,23 +17,31 @@ function GameDetail({ game }) {
   };
   return (
     <StyledCardShadow onClick={funcExitDetail} className="shadow">
-      <StyledDetail>
+      <StyledDetail layoutId={pathId}>
         <StyledStats>
           <div className="rating">
-            <h3>{game.name}</h3>
-            <p>Rating: {game.rating}</p>
+            <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
+            <motion.p layoutId={`rate ${pathId}`}>
+              Rating: {game.rating}
+            </motion.p>
           </div>
           <StyledInfo>
             <h3>Platforms</h3>
             <StyledPlatforms>
               {game.platforms.map((data) => (
-                <h3 key={data.platform.id}>{data.platform.name}</h3>
+                <motion.h3 layoutId={`h3 ${pathId}`} key={data.platform.id}>
+                  {data.platform.name}
+                </motion.h3>
               ))}
             </StyledPlatforms>
           </StyledInfo>
         </StyledStats>
         <StyledMedia>
-          <img src={game.background_image} alt="img"></img>
+          <motion.img
+            layoutId={`image ${pathId}`}
+            src={game.background_image}
+            alt="img"
+          ></motion.img>
         </StyledMedia>
         <div className="gallery">
           {game.short_screenshots.map((data) =>
