@@ -2,6 +2,16 @@ import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
+//platforms
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import xbox from "../img/xbox.svg";
+import nintendo from "../img/nintendo.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
+//stars
+import starEmpty from "../img/star-empty.png";
+import starFull from "../img/star-full.png";
 
 function GameDetail({ game, pathId }) {
   //revenirea la scrollare dupa inchiderea ferestrei cu detalii SI REVENIREA LA HOME
@@ -15,6 +25,41 @@ function GameDetail({ game, pathId }) {
       history.push("/");
     }
   };
+  //rating as stars
+  const getStars = () => {
+    const stars = [];
+    const rating = Math.floor(game.rating);
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(
+          <img alt="star" className="star" key={i} src={starFull}></img>
+        );
+      } else {
+        stars.push(
+          <img alt="star" className="star" key={i} src={starEmpty}></img>
+        );
+      }
+    }
+    return stars;
+  };
+  //platform icons
+  const getPlatform = (platform) => {
+    switch (platform) {
+      case "PlayStation 4":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      default:
+        return gamepad;
+    }
+  };
+
   return (
     <StyledCardShadow onClick={funcExitDetail} className="shadow">
       <StyledDetail layoutId={pathId}>
@@ -24,12 +69,17 @@ function GameDetail({ game, pathId }) {
             <motion.p layoutId={`rate ${pathId}`}>
               Rating: {game.rating}
             </motion.p>
+            {getStars()}
           </div>
           <StyledInfo>
             <h3>Platforms</h3>
             <StyledPlatforms>
               {game.platforms.map((data) => (
-                <h3 key={data.platform.id}>{data.platform.name}</h3>
+                <img
+                  key={data.platform.id}
+                  src={getPlatform(data.platform.name)}
+                  alt={data.platform.id}
+                ></img>
               ))}
             </StyledPlatforms>
           </StyledInfo>
@@ -83,15 +133,25 @@ const StyledStats = styled(motion.div)`
   align-items: center;
   justify-content: space-between;
   font-weight: bold;
+  .star {
+    width: 1rem;
+    height: 1rem;
+    display: inline;
+  }
 `;
 const StyledInfo = styled(motion.div)`
   text-align: center;
+  font-weight: bold;
+  h3 {
+    margin-bottom: 1rem;
+  }
 `;
 const StyledPlatforms = styled(motion.div)`
   display: flex;
   justify-content: space-evenly;
   img {
     margin-left: 3rem;
+    height: 1.8rem;
   }
 `;
 const StyledMedia = styled(motion.div)`

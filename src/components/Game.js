@@ -16,9 +16,7 @@ function Game({ game, setActualGame }) {
     >
       <Link to={`/game/${game.id}`}>
         <h3>{game.name}</h3>
-        <motion.p layoutId={`date ${game.id.toString()}`}>
-          {game.released}
-        </motion.p>
+        <p>{game.released}</p>
         <motion.img
           layoutId={`image ${game.id.toString()}`}
           src={game.background_image}
