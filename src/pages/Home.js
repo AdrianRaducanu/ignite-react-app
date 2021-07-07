@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 //components
 import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
+import { useLocation } from "react-router-dom";
 
 function Home() {
   //punerea datelor din api in redux
@@ -17,33 +18,50 @@ function Home() {
 
   //extragerea datelor din redux
   // {x, y, z} = ... <=> ceva = ... , ceva.x, ceva.y, ceva.z
-  const { popular, newGames, upcoming } = useSelector((state) => state.games);
+  const { popular, newGames, upcoming, isLoading } = useSelector(
+    (state) => state.games
+  );
   //
 
-  const [actualGame, setActualGame] = useState(popular[1]);
+  const [actualGame, setActualGame] = useState({
+    name: "",
+    platforms: [],
+    rating: "",
+    background_image: "",
+    short_screenshots: [],
+  });
+
+  //router
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+  console.log(path);
 
   return (
-    <StyledGameList>
-      {actualGame ? <GameDetail game={actualGame} /> : <div></div>}
-      <h2>Upcoming Games</h2>
-      <StyledGames>
-        {upcoming.map((x) => (
-          <Game game={x} key={x.id} setActualGame={setActualGame} />
-        ))}
-      </StyledGames>
-      <h2>Popular Games</h2>
-      <StyledGames>
-        {popular.map((x) => (
-          <Game game={x} key={x.id} setActualGame={setActualGame} />
-        ))}
-      </StyledGames>
-      <h2>New Games</h2>
-      <StyledGames>
-        {newGames.map((x) => (
-          <Game game={x} key={x.id} setActualGame={setActualGame} />
-        ))}
-      </StyledGames>
-    </StyledGameList>
+    <>
+      {!isLoading && (
+        <StyledGameList>
+          {path && <GameDetail game={actualGame} />}
+          <h2>Upcoming Games</h2>
+          <StyledGames>
+            {upcoming.map((x) => (
+              <Game game={x} key={x.id} setActualGame={setActualGame} />
+            ))}
+          </StyledGames>
+          <h2>Popular Games</h2>
+          <StyledGames>
+            {popular.map((x) => (
+              <Game game={x} key={x.id} setActualGame={setActualGame} />
+            ))}
+          </StyledGames>
+          <h2>New Games</h2>
+          <StyledGames>
+            {newGames.map((x) => (
+              <Game game={x} key={x.id} setActualGame={setActualGame} />
+            ))}
+          </StyledGames>
+        </StyledGameList>
+      )}
+    </>
   );
 }
 

@@ -12,6 +12,12 @@ const gamesReducer = (state = initState, action) => {
         popular: action.payload.popular,
         upcoming: action.payload.upcoming,
         newGames: action.payload.newGames,
+        isLoading: false,
+      };
+    case "LOADING":
+      return {
+        ...state,
+        isLoading: true,
       };
     default:
       return { ...state };

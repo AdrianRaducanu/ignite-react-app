@@ -1,10 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { useHistory } from "react-router-dom";
 
 function GameDetail({ game }) {
+  //revenirea la scrollare dupa inchiderea ferestrei cu detalii SI REVENIREA LA HOME
+  const history = useHistory();
+  const funcExitDetail = (e) => {
+    const element = e.target;
+
+    //console.log(element);
+    if (element.classList.contains("shadow")) {
+      document.body.style.overflow = "auto";
+      history.push("/");
+    }
+  };
   return (
-    <StyledCardShadow>
+    <StyledCardShadow onClick={funcExitDetail} className="shadow">
       <StyledDetail>
         <StyledStats>
           <div className="rating">
