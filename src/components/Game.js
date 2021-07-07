@@ -15,9 +15,7 @@ function Game({ game, setActualGame }) {
       onClick={funcSetGameAndLockBackground}
     >
       <Link to={`/game/${game.id}`}>
-        <motion.h3 layoutId={`title ${game.id.toString()}`}>
-          {game.name}
-        </motion.h3>
+        <h3>{game.name}</h3>
         <motion.p layoutId={`date ${game.id.toString()}`}>
           {game.released}
         </motion.p>

@@ -29,9 +29,7 @@ function GameDetail({ game, pathId }) {
             <h3>Platforms</h3>
             <StyledPlatforms>
               {game.platforms.map((data) => (
-                <motion.h3 layoutId={`h3 ${pathId}`} key={data.platform.id}>
-                  {data.platform.name}
-                </motion.h3>
+                <h3 key={data.platform.id}>{data.platform.name}</h3>
               ))}
             </StyledPlatforms>
           </StyledInfo>
@@ -64,6 +62,7 @@ const StyledCardShadow = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 5;
 `;
 const StyledDetail = styled(motion.div)`
   width: 80%;
