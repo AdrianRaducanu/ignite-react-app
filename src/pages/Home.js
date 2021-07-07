@@ -19,7 +19,7 @@ function Home() {
 
   //extragerea datelor din redux
   // {x, y, z} = ... <=> ceva = ... , ceva.x, ceva.y, ceva.z
-  const { popular, newGames, upcoming, isLoading } = useSelector(
+  const { popular, newGames, upcoming, isLoading, searched } = useSelector(
     (state) => state.games
   );
   //
@@ -45,6 +45,18 @@ function Home() {
             <AnimatePresence>
               {pathId && <GameDetail pathId={pathId} game={actualGame} />}
             </AnimatePresence>
+            {searched.length ? (
+              <>
+                <h2>Searched Games</h2>
+                <StyledGames>
+                  {searched.map((x) => (
+                    <Game game={x} key={x.id} setActualGame={setActualGame} />
+                  ))}
+                </StyledGames>
+              </>
+            ) : (
+              ""
+            )}
             <h2>Upcoming Games</h2>
             <StyledGames>
               {upcoming.map((x) => (
